@@ -1,0 +1,43 @@
+fitness-ai-agent/
+├── src/
+│   ├── agent/
+│   │   ├── __init__.py
+│   │   ├── fitness_agent.py
+│   │   ├── tools.py
+│   │   └── prompts.py
+│   ├── memory/
+│   │   ├── __init__.py
+│   │   ├── chroma_store.py      # ChromaDB implementation
+│   │   ├── user_profile.py
+│   │   └── conversation_memory.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   ├── workout.py
+│   │   └── nutrition.py
+│   ├── llm/
+│   │   ├── __init__.py
+│   │   └── model_manager.py      # Model management
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── rate_limiter.py
+│   │   └── analytics.py
+│   ├── ui/
+│   │   ├── __init__.py
+│   │   ├── components.py
+│   │   ├── chat_display.py
+│   │   └── dashboard.py
+│   └── utils/
+│       ├── __init__.py
+│       ├── image_handler.py     # Future: open-source vision models
+│       └── validators.py
+├── chroma_data/                 # Persistent ChromaDB storage
+│   └── .gitkeep
+├── config/
+│   ├── settings.py
+│   └── logging.conf
+├── tests/
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+└── app.py

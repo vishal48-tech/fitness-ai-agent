@@ -118,3 +118,11 @@ profiles/
 *.db
 *.sqlite
 *.sqlite3
+
+# Others
+.agents
+.claude
+implementation.md
+pyproject.toml
+skills-lock.json
+uv.lock

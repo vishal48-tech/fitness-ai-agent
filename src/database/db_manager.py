@@ -148,7 +148,7 @@ class DBManager:
             supabase.table("chat_messages")
             .select("*")
             .eq("session_id", session_id)
-            .order("created_at", asc=True)
+            .order("created_at", desc=False)
             .execute()
         )
         return response.data or []

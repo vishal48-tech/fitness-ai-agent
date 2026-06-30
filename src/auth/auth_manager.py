@@ -45,24 +45,24 @@ class AuthManager:
         # It handles invalidation based on current active session/client state.
         supabase.auth.sign_out(jwt)
 
-    @staticmethod
-    def get_google_auth_url() -> str:
-        """Get the URL to redirect the user to for Google OAuth login.
-        Generates PKCE code_verifier and stores it for the callback.
-        """
-        supabase = get_supabase()
-        code_verifier, code_challenge = AuthManager._generate_pkce()
-        AuthManager._save_code_verifier(code_verifier)
+    # @staticmethod
+    # def get_google_auth_url() -> str:
+    #     """Get the URL to redirect the user to for Google OAuth login.
+    #     Generates PKCE code_verifier and stores it for the callback.
+    #     """
+    #     supabase = get_supabase()
+    #     code_verifier, code_challenge = AuthManager._generate_pkce()
+    #     AuthManager._save_code_verifier(code_verifier)
         
-        response = supabase.auth.sign_in_with_oauth({
-            "provider": "google",
-            "options": {
-                "redirect_to": "http://localhost:8501"
-            }
-        })
+    #     response = supabase.auth.sign_in_with_oauth({
+    #         "provider": "google",
+    #         "options": {
+    #             "redirect_to": "http://localhost:8501"
+    #         }
+    #     })
         
-        if hasattr(response, "url"):
-            return response.url
-        elif isinstance(response, dict) and "url" in response:
-            return response["url"]
-        return str(response)
+    #     if hasattr(response, "url"):
+    #         return response.url
+    #     elif isinstance(response, dict) and "url" in response:
+    #         return response["url"]
+    #     return str(response)

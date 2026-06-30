@@ -9,6 +9,7 @@ import contextlib
 import uuid
 from datetime import datetime
 from typing import List, Dict
+from config.settings import CHROMA_API_KEY, CHROMA_TENANT, CHROMA_DATABASE
 
 import logging
 
@@ -18,7 +19,11 @@ logger = logging.getLogger(__name__)
 
 def _get_client() -> chromadb.CloudClient:
     """Return a Chroma Cloud client using env vars set by chromadb CLI or .env."""
-    return chromadb.CloudClient()
+    return chromadb.CloudClient(
+        api_key=CHROMA_API_KEY,
+        tenant=CHROMA_TENANT,
+        database=CHROMA_DATABASE,
+    )
 
 
 class FitnessMemoryStore:

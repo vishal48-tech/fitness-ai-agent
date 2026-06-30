@@ -10,7 +10,8 @@ def render_login_page():
     st.subheader("Achieve your fitness goals with personalized AI-guided coaching.")
 
     # Tabs for login, registration, and Google OAuth
-    tab_login, tab_register, tab_google = st.tabs(["🔑 Login", "📝 Sign Up", "🌐 Google OAuth"])
+    # tab_login, tab_register, tab_google = st.tabs(["🔑 Login", "📝 Sign Up", "🌐 Google OAuth"])
+    tab_login, tab_register = st.tabs(["🔑 Login", "📝 Sign Up"])
 
     with tab_login:
         email = st.text_input("Email Address", key="login_email")
@@ -45,13 +46,13 @@ def render_login_page():
                 except Exception as e:
                     st.error(f"Registration failed: {str(e)}")
 
-    with tab_google:
-        st.write("Or instantly connect using your Google Account:")
-        if st.button("Log in with Google", use_container_width=True):
-            try:
-                auth_url = AuthManager.get_google_auth_url()
-                if auth_url:
-                    st.session_state["redirect_url"] = auth_url
-                    st.rerun()
-            except Exception as e:
-                st.error(f"Failed to trigger OAuth redirect: {str(e)}")
+    # with tab_google:
+    #     st.write("Or instantly connect using your Google Account:")
+    #     if st.button("Log in with Google", use_container_width=True):
+    #         try:
+    #             auth_url = AuthManager.get_google_auth_url()
+    #             if auth_url:
+    #                 st.session_state["redirect_url"] = auth_url
+    #                 st.rerun()
+    #         except Exception as e:
+    #             st.error(f"Failed to trigger OAuth redirect: {str(e)}")

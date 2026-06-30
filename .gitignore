@@ -126,3 +126,5 @@ implementation.md
 pyproject.toml
 skills-lock.json
 uv.lock
+.opencodeignore
+opencode.json

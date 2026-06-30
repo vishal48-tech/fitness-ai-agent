@@ -61,57 +61,57 @@ def main():
 
     # OAuth Callback handling: Check query/hash parameters from Supabase redirect
     # Streamlit query params exposes parameters sent back in the URL
-    params = st.query_params
+    # params = st.query_params
     
-    # If the URL contains access token hash fragments, convert them to query parameters for Python
-    st.markdown(
-        """
-        <script>
-            (function() {
-                // Get the current URL
-                var url = window.top.location.href || window.location.href;
+    # # If the URL contains access token hash fragments, convert them to query parameters for Python
+    # st.markdown(
+    #     """
+    #     <script>
+    #         (function() {
+    #             // Get the current URL
+    #             var url = window.top.location.href || window.location.href;
                 
-                // Check if there's a hash with access_token
-                if (url.includes('#') && url.includes('access_token')) {
-                    // Convert hash to query params
-                    var hash = url.split('#')[1];
-                    var cleanUrl = url.split('#')[0];
-                    window.top.location.replace(cleanUrl + '?' + hash);
-                }
-            })();
-            </script>
-        """,
-        unsafe_allow_html=True
-    )
+    #             // Check if there's a hash with access_token
+    #             if (url.includes('#') && url.includes('access_token')) {
+    #                 // Convert hash to query params
+    #                 var hash = url.split('#')[1];
+    #                 var cleanUrl = url.split('#')[0];
+    #                 window.top.location.replace(cleanUrl + '?' + hash);
+    #             }
+    #         })();
+    #         </script>
+    #     """,
+    #     unsafe_allow_html=True
+    # )
 
 
-    if "code" in params:
-        # User is returning from OAuth provider
-        logger.info(f"{params}")
-        supabase = get_supabase()
-        try:
-            # Reconstruct session details from query parameters
-            code = params.get("code")
+    # if "code" in params:
+    #     # User is returning from OAuth provider
+    #     logger.info(f"{params}")
+    #     supabase = get_supabase()
+    #     try:
+    #         # Reconstruct session details from query parameters
+    #         code = params.get("code")
             
-            # In gotrue-py, set_session can take the tokens directly
-            session = supabase.auth.set_session({"access_token": code, "refresh_token": code})
+    #         # In gotrue-py, set_session can take the tokens directly
+    #         session = supabase.auth.set_session({"access_token": code, "refresh_token": code})
 
 
-            if session and hasattr(session, "user") and session.user:
-                st.session_state["supabase_session"] = session
-                st.session_state["supabase_user"] = session.user
-                # Clean up parameters from state
-                st.query_params.clear()
-                st.rerun()
-            else:
-                st.warning("Session returned but no user details found.")
-        except Exception as e:
-            st.error(f"Error during OAuth session exchange: {str(e)}")
-            # Log full stack trace
-            import traceback
-            st.code(traceback.format_exc())
-            # Don't silence it so we can see the exact cause
-            st.stop()
+    #         if session and hasattr(session, "user") and session.user:
+    #             st.session_state["supabase_session"] = session
+    #             st.session_state["supabase_user"] = session.user
+    #             # Clean up parameters from state
+    #             st.query_params.clear()
+    #             st.rerun()
+    #         else:
+    #             st.warning("Session returned but no user details found.")
+    #     except Exception as e:
+    #         st.error(f"Error during OAuth session exchange: {str(e)}")
+    #         # Log full stack trace
+    #         import traceback
+    #         st.code(traceback.format_exc())
+    #         # Don't silence it so we can see the exact cause
+    #         st.stop()
 
     # Verify API credentials exist
     if not os.getenv("GROQ_API_KEY"):
